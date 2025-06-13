@@ -11,10 +11,10 @@ def generate_name():
 
 # 實際使用時請貼上實際選手資料
 players = {
-    "Day-Beginner-Intermediate": ['華啟梅', '陶家樂', '胡小蓮', '孟愛貞', '林臻', '莊家玲', '邱如玉', 'TBA'],
-    "Night-Beginner-Intermediate": ['華啟梅','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','TBA'],
-    "Day-Advanced":['羅天文','李彤庭','TBA','TBA','TBA','TBA','TBA','TBA'],
-    "Night-Advanced":['張立揚','William Hou','TBA','TBA','TBA','TBA','TBA','TBA'],
+    "Day-Beginner-Intermediate": ['華啟梅', '陶家樂', '胡小蓮', '孟愛貞', '林臻', '莊家玲', '邱如玉', 'TBA1'],
+    "Night-Beginner-Intermediate": ['華啟梅','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','TBA2'],
+    "Day-Advanced":['羅天文','李彤庭','TBA3','TBA4','TBA5','TBA6','TBA7','TBA8'],
+    "Night-Advanced":['張立揚','William Hou','TBA9','TBA10','TBA11','TBA12','TBA13','TBA14'],
 
 
     # "Day-Beginner-Intermediate": [generate_name() for _ in range(8)],
