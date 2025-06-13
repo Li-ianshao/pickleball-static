@@ -1,5 +1,6 @@
 import random
 import os
+import xml.etree.ElementTree as ET
 
 # 隨機姓名生成器
 first_names = ["Alex", "Jamie", "Taylor", "Jordan", "Morgan", "Casey", "Drew", "Skyler"]
@@ -10,10 +11,16 @@ def generate_name():
 
 # 實際使用時請貼上實際選手資料
 players = {
-    "Day-Beginner-Intermediate": [generate_name() for _ in range(8)],
-    "Night-Beginner-Intermediate": [generate_name() for _ in range(8)],
-    "Day-Advanced": [generate_name() for _ in range(8)],
-    "Night-Advanced": [generate_name() for _ in range(8)]
+    "Day-Beginner-Intermediate": ['華啟梅', '陶家樂', '胡小蓮', '孟愛貞', '林臻', '莊家玲', '邱如玉', 'TBA'],
+    "Night-Beginner-Intermediate": ['華啟梅','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','TBA'],
+    "Day-Advanced":['羅天文','李彤庭','TBA','TBA','TBA','TBA','TBA','TBA'],
+    "Night-Advanced":['張立揚','William Hou','TBA','TBA','TBA','TBA','TBA','TBA'],
+
+
+    # "Day-Beginner-Intermediate": [generate_name() for _ in range(8)],
+    # "Night-Beginner-Intermediate": [generate_name() for _ in range(8)],
+    #"Day-Advanced": [generate_name() for _ in range(8)],
+    #"Night-Advanced": [generate_name() for _ in range(8)]
 }
 
 # 場地與隊伍設定
@@ -22,6 +29,13 @@ courts = {
     "Court B (Beginner - Intermediate)": ["Team 5", "Team 6", "Team 7", "Team 8"],
     "Court C (Advanced)": ["Team 9", "Team 10", "Team 11", "Team 12"],
     "Court D (Advanced)": ["Team 13", "Team 14", "Team 15", "Team 16"]
+}
+
+court_suits = {
+    "Court A (Beginner - Intermediate)": "♥️",
+    "Court B (Beginner - Intermediate)": "♦️",
+    "Court C (Advanced)": "♠️",
+    "Court D (Advanced)": "♣️"
 }
 
 # HTML 開頭
@@ -60,6 +74,7 @@ html = """
             font-size: 0.875rem;
             border: 1px solid #60a5fa;
             cursor: grab;
+            user-select: none;
         }
 
         .court-grid {
@@ -73,7 +88,22 @@ html = """
             background-color: #f0fdf4;
             border: 2px solid #4ade80;
             border-radius: 1rem;
+            position: relative;
         }
+
+        .court-suit { 
+            position: absolute;
+            top: -4.5px;
+            left: 22.75px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .court-title {
+            margin-left: 3rem;
+            font-weight: bold;
+        }
+
         .team {
             border: 2px dashed #94a3b8;
             min-height: 3rem;
@@ -89,8 +119,8 @@ html = """
     </style>
 </head>
 <body>
-    <h1 class="text-xl font-bold mb-4">選手分組管理介面</h1>
-    <div class="players-panel">
+    <h1 class=\"text-xl font-bold mb-4\">選手分組管理介面</h1>
+    <div class=\"players-panel\">
 """
 
 # 產生左側選手欄位
@@ -104,38 +134,120 @@ html += "</div><div class='court-grid'>"
 
 # 產生右側球場與隊伍空格（按照四宮格排版）
 for court, teams in courts.items():
-    html += f"<div class='court'><strong>{court}</strong>"
+    suit = court_suits.get(court, '')
+    html += f"<div class='court'><div class='court-suit'>{suit}</div><div class='court-title'>{court}</div>"
     for team in teams:
-        html += f"<div class='team' ondragover='allowDrop(event)' ondragleave='leave(event)' ondrop='drop(event)'></div>"
+        html += f"  <div class='team' teamId='{team}'></div>\n"
     html += "</div>"
 
-# HTML 結尾加上 JS
 html += """
     </div>
-<script>
-    let dragged;
+    <button onclick=\"generateXML()\" style=\"margin-top: 2rem; padding: 0.75rem 1.5rem; background-color: #3b82f6; color: white; border: none; border-radius: 0.375rem; font-weight: bold;\">產生 XML</button>
 
-    document.querySelectorAll('.player').forEach(el => {
-        el.addEventListener('dragstart', e => {
-            dragged = e.target;
-            e.dataTransfer.setData('text/plain', e.target.innerText);
-            e.dataTransfer.setDragImage(e.target, 0, 0);
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let dragged = null;
+
+        document.querySelectorAll('.player').forEach(el => {
+            el.addEventListener('dragstart', e => {
+                dragged = e.target;
+                e.dataTransfer.setData('text/plain', e.target.innerText);
+                e.dataTransfer.setDragImage(e.target, 0, 0);
+            });
         });
+
+        document.querySelectorAll('.team').forEach(el => {
+            el.addEventListener('dragover', allowDrop);
+            el.addEventListener('dragleave', leave);
+            el.addEventListener('drop', drop);
+        });
+
+        function allowDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('over');
+        }
+
+        function leave(e) {
+            e.currentTarget.classList.remove('over');
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('over');
+            if (dragged && !e.currentTarget.contains(dragged)) {
+                e.currentTarget.appendChild(dragged);
+            }
+        }
     });
 
-    function allowDrop(e) {
-        e.preventDefault();
-        e.currentTarget.classList.add('over');
+    function generateScheduleXML(courtMatches, teamPlayers) {
+        let result = `<?xml version="1.0" encoding="UTF-8"?>\n<schedule>\n`;
+
+        Object.entries(courtMatches).forEach(([courtName, teamList]) => {
+            result += `  <court name="${courtName}">\n`;
+
+            for (let i = 0; i < teamList.length; i++) {
+            for (let j = i + 1; j < teamList.length; j++) {
+                const teamL = teamList[i];
+                const teamR = teamList[j];
+
+                const teamLPlayers = teamPlayers[teamL] || ["", ""];
+                const teamRPlayers = teamPlayers[teamR] || ["", ""];
+
+                result += `    <match round="" `;
+                result += `teamL="${teamL}" teamR="${teamR}" `;
+                result += `teamLPlayer1="${teamLPlayers[0]}" teamLPlayer2="${teamLPlayers[1]}" `;
+                result += `teamRPlayer1="${teamRPlayers[0]}" teamRPlayer2="${teamRPlayers[1]}" `;
+                result += `teamLScore="" teamRScore="" />\n`;
+            }
+            }
+
+            result += `  </court>\n`;
+        });
+
+        result += `</schedule>`;
+        console.log("🏓 賽程 XML：", result);
+        return result;
     }
 
-    function leave(e) {
-        e.currentTarget.classList.remove('over');
-    }
+    function generateXML() {
+        let courts = document.querySelectorAll('.court');
+        let result = `<?xml version="1.0" encoding="UTF-8"?>\n<groups>\n`;
+        let courtMatches = {};
+        let teamPlayers = {};
 
-    function drop(e) {
-        e.preventDefault();
-        e.currentTarget.classList.remove('over');
-        if (dragged) e.currentTarget.appendChild(dragged);
+        courts.forEach(court => {
+            let courtName = court.querySelector('.court-title').innerText;
+            let teams = court.querySelectorAll('.team');
+
+            result += `  <court name="${courtName}">\n`;
+            courtMatches[courtName] = [];
+
+            teams.forEach(teamDiv => {
+                const teamId = teamDiv.getAttribute("teamId");
+                result += `    <team id="${teamId}">\n`;
+                courtMatches[courtName].push(teamId);
+
+                let teamMemberNames = [];
+                teamDiv.querySelectorAll('.player').forEach(player => {
+                    result += `      <player>${player.innerText}</player>\n`;
+                    teamMemberNames.push(player.innerText);
+                });
+
+                teamPlayers[teamId] = teamMemberNames;
+                result += `    </team>\n`;
+            });
+
+            result += `  </court>\n`;
+        });
+
+        result += '</groups>';
+        console.log("📦 分組 XML:");
+        console.log(result);
+
+        generateScheduleXML(courtMatches, teamPlayers);
+
+        alert("✅ 分組與賽程 XML 皆已顯示於 console 中。");
     }
 </script>
 </body>
