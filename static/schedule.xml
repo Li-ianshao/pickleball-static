@@ -8,12 +8,12 @@
     <match round="2" teamL="Team 3" teamR="Team 4" teamLPlayer1="胡小蓮" teamLPlayer2="Joy Liu" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="13" teamRScore="11" />
   </court>
   <court name="Court B (Beginner - Intermediate)">
-    <match round="1" teamL="Team 5" teamR="Team 6" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="林臻" teamRPlayer2="TBA1" teamLScore="" teamRScore="" />
-    <match round="6" teamL="Team 5" teamR="Team 7" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="華啟梅" teamRPlayer2="邱如玉" teamLScore="" teamRScore="" />
-    <match round="5" teamL="Team 5" teamR="Team 8" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="" teamRScore="" />
-    <match round="4" teamL="Team 6" teamR="Team 7" teamLPlayer1="林臻" teamLPlayer2="TBA1" teamRPlayer1="華啟梅" teamRPlayer2="邱如玉" teamLScore="" teamRScore="" />
-    <match round="3" teamL="Team 6" teamR="Team 8" teamLPlayer1="林臻" teamLPlayer2="TBA1" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="" teamRScore="" />
-    <match round="2" teamL="Team 7" teamR="Team 8" teamLPlayer1="華啟梅" teamLPlayer2="邱如玉" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="" teamRScore="" />
+    <match round="1" teamL="Team 5" teamR="Team 6" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="林臻" teamRPlayer2="TBA1" teamLScore="5" teamRScore="11" />
+    <match round="6" teamL="Team 5" teamR="Team 7" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="華啟梅" teamRPlayer2="邱如玉" teamLScore="8" teamRScore="11" />
+    <match round="5" teamL="Team 5" teamR="Team 8" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="6" teamRScore="11" />
+    <match round="4" teamL="Team 6" teamR="Team 7" teamLPlayer1="林臻" teamLPlayer2="TBA1" teamRPlayer1="華啟梅" teamRPlayer2="邱如玉" teamLScore="14" teamRScore="12" />
+    <match round="3" teamL="Team 6" teamR="Team 8" teamLPlayer1="林臻" teamLPlayer2="TBA1" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="11" teamRScore="7" />
+    <match round="2" teamL="Team 7" teamR="Team 8" teamLPlayer1="華啟梅" teamLPlayer2="邱如玉" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="11" teamRScore="9" />
   </court>
   <court name="Court C (Advanced)">
     <match round="1" teamL="Team 9" teamR="Team 10" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="李彤庭" teamRPlayer2="William Hou" teamLScore="" teamRScore="" />
