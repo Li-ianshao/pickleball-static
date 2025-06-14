@@ -77,6 +77,22 @@ for court in root.findall('court'):
 
 html += """
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://raw.githubusercontent.com/Li-ianshao/pickleball-static/refs/heads/main/static/schedule.xml")
+            .then(response => response.text())
+            .then(data => {
+                alert('Reload')
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(data, "application/xml");
+                console.log(xml)
+                
+            })
+            .catch(err => {
+                console.error("❌ 無法載入賽程 XML", err);
+            });
+    });
+</script>
 </html>
 """
 
