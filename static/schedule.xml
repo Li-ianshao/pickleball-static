@@ -1,11 +1,11 @@
 <schedule>
   <court name="Court A (Beginner - Intermediate)">
     <match round="1" teamL="Team 1" teamR="Team 2" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="陶家樂" teamRPlayer2="Alexander Nguyen" teamLScore="4" teamRScore="11" />
-    <match round="3" teamL="Team 1" teamR="Team 3" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu" teamLScore="" teamRScore="" />
-    <match round="5" teamL="Team 1" teamR="Team 4" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="" teamRScore="" />
-    <match round="6" teamL="Team 2" teamR="Team 3" teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen" teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu" teamLScore="" teamRScore="" />
-    <match round="4" teamL="Team 2" teamR="Team 4" teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="" teamRScore="" />
-    <match round="2" teamL="Team 3" teamR="Team 4" teamLPlayer1="胡小蓮" teamLPlayer2="Joy Liu" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="" teamRScore="" />
+    <match round="3" teamL="Team 1" teamR="Team 3" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu" teamLScore="11" teamRScore="8" />
+    <match round="5" teamL="Team 1" teamR="Team 4" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="0" teamRScore="11" />
+    <match round="6" teamL="Team 2" teamR="Team 3" teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen" teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu" teamLScore="5" teamRScore="11" />
+    <match round="4" teamL="Team 2" teamR="Team 4" teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="11" teamRScore="9" />
+    <match round="2" teamL="Team 3" teamR="Team 4" teamLPlayer1="胡小蓮" teamLPlayer2="Joy Liu" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="13" teamRScore="11" />
   </court>
   <court name="Court B (Beginner - Intermediate)">
     <match round="1" teamL="Team 5" teamR="Team 6" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="林臻" teamRPlayer2="TBA1" teamLScore="" teamRScore="" />
