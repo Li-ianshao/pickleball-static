@@ -1,222 +1,280 @@
 
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <title>Pickleball 分組管理</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; padding: 1rem; display: flex; flex-direction: column; gap: 2rem; }
-
-        .players-panel {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-        .column-title {
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-        }
-        .group {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 0.5rem;
-            background-color: #f8fafc;
-        }
-        .player {
-            display: inline-block;
-            background: #dbeafe;
-            color: #1e3a8a;
-            padding: 0.3rem 0.6rem;
-            margin: 0.2rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            border: 1px solid #60a5fa;
-            cursor: grab;
-            user-select: none;
-        }
-
-        .court-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 2rem;
-        }
-        .court {
-            padding: 1rem;
-            background-color: #f0fdf4;
-            border: 2px solid #4ade80;
-            border-radius: 1rem;
-            position: relative;
-        }
-
-        .court-suit { 
-            position: absolute;
-            top: -4.5px;
-            left: 22.75px;
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        .court-title {
-            margin-left: 3rem;
-            font-weight: bold;
-        }
-
-        .team {
-            border: 2px dashed #94a3b8;
-            min-height: 3rem;
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
-            background: #f8fafc;
-            border-radius: 0.375rem;
-            transition: background-color 0.2s;
-        }
-        .team.over {
-            background-color: #bbf7d0;
-        }
-    </style>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>分組管理</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .player-tag {
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+      border: 2px solid #60a5fa;
+    }
+    .group-slot .symbol {
+      cursor: pointer;
+    }
+    .symbol-picker {
+      position: absolute;
+      display: none;
+      z-index: 50;
+    }
+    .symbol-picker button {
+      width: 3.0rem;
+      height: 2.5rem;
+      margin: 0.25rem;
+      font-size: 1.25rem;
+      font-family: revert;
+      border: 1px solid #ccc;
+      border-radius: 0.375rem;
+      background-color: #f9fafb;
+    }
+  </style>
 </head>
-<body>
-    <h1 class="text-xl font-bold mb-4">選手分組管理介面</h1>
-    <div class="players-panel">
-<div class='group'><div class='column-title'>Day-Beginner-Intermediate</div><div class='player' draggable='true'>華啟梅</div><div class='player' draggable='true'>陶家樂</div><div class='player' draggable='true'>胡小蓮</div><div class='player' draggable='true'>孟愛貞</div><div class='player' draggable='true'>林臻</div><div class='player' draggable='true'>莊家玲</div><div class='player' draggable='true'>邱如玉</div><div class='player' draggable='true'>TBA1</div></div><div class='group'><div class='column-title'>Night-Beginner-Intermediate</div><div class='player' draggable='true'>華啟梅</div><div class='player' draggable='true'>徐慶如</div><div class='player' draggable='true'>Alexander Nguyen</div><div class='player' draggable='true'>Joy Liu</div><div class='player' draggable='true'>吳尚真</div><div class='player' draggable='true'>李倩</div><div class='player' draggable='true'>溫孟璇</div><div class='player' draggable='true'>TBA2</div></div><div class='group'><div class='column-title'>Day-Advanced</div><div class='player' draggable='true'>羅天文</div><div class='player' draggable='true'>李彤庭</div><div class='player' draggable='true'>TBA3</div><div class='player' draggable='true'>TBA4</div><div class='player' draggable='true'>TBA5</div><div class='player' draggable='true'>TBA6</div><div class='player' draggable='true'>TBA7</div><div class='player' draggable='true'>TBA8</div></div><div class='group'><div class='column-title'>Night-Advanced</div><div class='player' draggable='true'>張立揚</div><div class='player' draggable='true'>William Hou</div><div class='player' draggable='true'>TBA9</div><div class='player' draggable='true'>TBA10</div><div class='player' draggable='true'>TBA11</div><div class='player' draggable='true'>TBA12</div><div class='player' draggable='true'>TBA13</div><div class='player' draggable='true'>TBA14</div></div></div><div class='court-grid'><div class='court'><div class='court-suit'>♥️</div><div class='court-title'>Court A (Beginner - Intermediate)</div>  <div class='team' teamId='Team 1'></div>
-  <div class='team' teamId='Team 2'></div>
-  <div class='team' teamId='Team 3'></div>
-  <div class='team' teamId='Team 4'></div>
-</div><div class='court'><div class='court-suit'>♦️</div><div class='court-title'>Court B (Beginner - Intermediate)</div>  <div class='team' teamId='Team 5'></div>
-  <div class='team' teamId='Team 6'></div>
-  <div class='team' teamId='Team 7'></div>
-  <div class='team' teamId='Team 8'></div>
-</div><div class='court'><div class='court-suit'>♠️</div><div class='court-title'>Court C (Advanced)</div>  <div class='team' teamId='Team 9'></div>
-  <div class='team' teamId='Team 10'></div>
-  <div class='team' teamId='Team 11'></div>
-  <div class='team' teamId='Team 12'></div>
-</div><div class='court'><div class='court-suit'>♣️</div><div class='court-title'>Court D (Advanced)</div>  <div class='team' teamId='Team 13'></div>
-  <div class='team' teamId='Team 14'></div>
-  <div class='team' teamId='Team 15'></div>
-  <div class='team' teamId='Team 16'></div>
-</div>
+<body class="bg-gray-100 min-h-screen p-6">
+  <h1 class="text-2xl font-bold mb-4 text-center">🏓 分組管理</h1>
+  <div class='grid grid-cols-2 gap-6 bg-white p-6 rounded shadow-lg mb-6 relative'>
+    <div id="symbol-picker" class="symbol-picker bg-white border rounded shadow p-2 flex flex-wrap w-64 hidden"></div>
+<div class='col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4'>
+<div><h2 class='font-semibold text-lg mb-2'>Day-Beginner</h2><div class='flex flex-wrap gap-2'><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>華啟梅</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>陶家樂</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>胡小蓮</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>孟愛貞</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>林 臻</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>莊家玲</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>邱如玉</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>施蓉蓉</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>謝元興</div></div></div><div><h2 class='font-semibold text-lg mb-2'>Day-Advanced</h2><div class='flex flex-wrap gap-2'><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>羅天文</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>李彤庭</div></div></div><div><h2 class='font-semibold text-lg mb-2'>Night-Beginner</h2><div class='flex flex-wrap gap-2'><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>華啟梅</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>徐慶如</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>Alexander Nguyen</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>Joy Liu</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>吳尚真</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>李倩</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>溫孟璇</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>Joseph Richardson</div></div></div><div><h2 class='font-semibold text-lg mb-2'>Night-Advanced</h2><div class='flex flex-wrap gap-2'><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>張立揚</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>William Hou</div><div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>湯士昀</div></div></div></div>
+    <div class="bg-slate-50 shadow-inner p-4 rounded border">
+      <h2 class="text-lg font-semibold mb-4">Beginner</h2>
+      <div class="space-y-3 group-type" id="beginner-groups" data-type="beginner">
+    
+        <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
+          <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+          <div class="flex flex-wrap gap-2"></div>
+        </div>
+        
+        <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
+          <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+          <div class="flex flex-wrap gap-2"></div>
+        </div>
+        
+        <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
+          <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+          <div class="flex flex-wrap gap-2"></div>
+        </div>
+        
+      </div>
+      <button onclick="addGroup('beginner-groups')" class="mt-3 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">新增空間</button>
     </div>
-    <button onclick="generateXML()" style="margin-top: 2rem; padding: 0.75rem 1.5rem; background-color: #3b82f6; color: white; border: none; border-radius: 0.375rem; font-weight: bold;">產生 XML</button>
-
+    
+    <div class="bg-slate-50 shadow-inner p-4 rounded border">
+      <h2 class="text-lg font-semibold mb-4">Advanced</h2>
+      <div class="space-y-3 group-type" id="advanced-groups" data-type="advanced">
+    
+        <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
+          <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+          <div class="flex flex-wrap gap-2"></div>
+        </div>
+        
+        <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
+          <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+          <div class="flex flex-wrap gap-2"></div>
+        </div>
+        
+        <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
+          <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+          <div class="flex flex-wrap gap-2"></div>
+        </div>
+        
+      </div>
+      <button onclick="addGroup('advanced-groups')" class="mt-3 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">新增空間</button>
+    </div>
+    </div>
+<div class="mt-6 text-center">
+  <button onclick="generateScheduleXMLFromGroups()" class="mt-4 px-4 py-2 bg-green-600 text-white rounded shadow">
+  產生賽程 XML
+</button>
+</div>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        let dragged = null;
+  const suits = ["♠️", "♣️", "J♣️", "Q♣️", "K♣️", "A♣️", "♥️", "♦️", "J♥️", "Q♥️", "K♥️", "A♥️", "J♠️", "Q♠️", "K♠️", "A♠️"];
+  let dragged = null;
+  let currentSymbolBtn = null;
 
-        document.querySelectorAll('.player').forEach(el => {
-            el.addEventListener('dragstart', e => {
-                dragged = e.target;
-                e.dataTransfer.setData('text/plain', e.target.innerText);
-                e.dataTransfer.setDragImage(e.target, 0, 0);
-            });
-        });
-
-        document.querySelectorAll('.team').forEach(el => {
-            el.addEventListener('dragover', allowDrop);
-            el.addEventListener('dragleave', leave);
-            el.addEventListener('drop', drop);
-        });
-
-        function allowDrop(e) {
-            e.preventDefault();
-            e.currentTarget.classList.add('over');
-        }
-
-        function leave(e) {
-            e.currentTarget.classList.remove('over');
-        }
-
-        function drop(e) {
-            e.preventDefault();
-            e.currentTarget.classList.remove('over');
-            if (dragged && !e.currentTarget.contains(dragged)) {
-                e.currentTarget.appendChild(dragged);
-            }
-        }
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.player-tag').forEach(el => {
+      el.addEventListener('dragstart', e => dragged = el);
+    });
+    document.querySelectorAll('.group-slot').forEach(slot => {
+      slot.addEventListener('dragover', e => e.preventDefault());
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        if (dragged) slot.querySelector('div.flex').appendChild(dragged);
+      });
     });
 
-    function generateScheduleXML(courtMatches, teamPlayers) {
-        let result = `<?xml version="1.0" encoding="UTF-8"?>
+    const picker = document.getElementById("symbol-picker");
+    suits.forEach(s => {
+      const btn = document.createElement("button");
+      btn.textContent = s;
+      btn.onclick = () => {
+        if (currentSymbolBtn) currentSymbolBtn.textContent = s;
+        picker.classList.add('hidden'); picker.classList.remove('flex');
+      };
+      picker.appendChild(btn);
+    });
+  });
+
+  function openSymbolPicker(button) {
+    currentSymbolBtn = button;
+    const picker = document.getElementById("symbol-picker");
+    picker.classList.remove('hidden'); picker.classList.add('flex');
+    const rect = button.getBoundingClientRect();
+    picker.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+    picker.style.left = (window.scrollX + rect.left) + 'px';
+  }
+
+  function addGroup(containerId) {
+    const container = document.getElementById(containerId);
+    
+    const div = document.createElement('div');
+    div.className = "group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow mt-2";
+    div.innerHTML = `
+      <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
+      <div class="flex flex-wrap gap-2" ></div>
+    `;
+    container.appendChild(div);
+
+    div.addEventListener('dragover', e => e.preventDefault());
+    div.addEventListener('drop', e => {
+      e.preventDefault();
+      if (dragged) div.querySelector('div.flex').appendChild(dragged);
+    });
+  }
+
+  function generateXML() {
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<groups>\n';
+  document.querySelectorAll('.group-slot').forEach(slot => {
+    const symbol = slot.querySelector('button.symbol')?.textContent.trim() || '?';
+    const players = Array.from(slot.querySelectorAll('.player-tag')).map(p => p.textContent.trim());
+    if (players.length > 0) {
+      xml += `  <team id="${symbol}">\n`;
+      players.forEach(p => {
+        xml += `    <player>${p}</player>\n`;
+      });
+      xml += '  </team>\n';
+    }
+  });
+  xml += '</groups>';
+  console.log("📂 分組 XML:");
+  console.log(xml);
+  alert("✅ XML 已顯示於 console");
+}
+
+// 🔽 假設：分組區塊中，每一個 .group-slot 代表一組隊伍
+//       每個 .group-slot 裡面有 2 個 .player，並且 data-symbol 屬性代表該隊伍的圖示
+// 🔽 假設：分組區塊中，每一個 .group-slot 代表一組隊伍
+//       每個 .group-slot 裡面有 2 個 .player，並且 data-symbol 屬性代表該隊伍的圖示
+
+function generateScheduleXMLFromGroups() {
+  const beginnerCourts = ['A', 'B'];
+  const advancedCourt = 'D';
+  const courtMap = { A: [], B: [], D: [] };
+
+  const slots = document.querySelectorAll('.group-slot');
+  const beginnerTeams = [];
+  const advancedTeams = [];
+
+  slots.forEach(slot => {
+    const symbol = slot.querySelector('button.symbol')?.textContent.trim() || '?';
+    const players = [...slot.querySelectorAll('.player-tag')].map(p => p.innerText.trim()).filter(x => x);
+    const type = slot.closest('.group-type').dataset.type; // beginner / advanced
+
+    const team = {
+      symbol,
+      players,
+    };
+
+    if (type === 'beginner') beginnerTeams.push(team);
+    else if (type === 'advanced') advancedTeams.push(team);
+  });
+
+  function getMatchups(teams) {
+    const result = [];
+    const n = teams.length;
+    if (n < 4) {
+      // 全對全
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          result.push([teams[i], teams[j]]);
+        }
+      }
+    } else {
+      // 每隊與不同對手打3場（簡單隨機挑3個）
+      for (let i = 0; i < n; i++) {
+        const opponents = [...Array(n).keys()].filter(j => j !== i);
+        const selected = opponents.slice(0, 3); // 可加隨機打亂
+        selected.forEach(j => {
+          if (i < j) result.push([teams[i], teams[j]]);
+        });
+      }
+    }
+    return result;
+  }
+
+  // 🔄 將 beginnerTeams 分成兩半以對應兩個球場
+  const half = Math.ceil(beginnerTeams.length / 2);
+  const courtABeginnerTeams = beginnerTeams.slice(0, half);
+  const courtBBeginnerTeams = beginnerTeams.slice(half);
+
+  const beginnerMatchesA = getMatchups(courtABeginnerTeams);
+  const beginnerMatchesB = getMatchups(courtBBeginnerTeams);
+  const advancedMatches = getMatchups(advancedTeams);
+
+  beginnerMatchesA.forEach((pair) => {
+    courtMap['A'].push({
+      teamL: pair[0],
+      teamR: pair[1],
+      isBeginner: true,
+    });
+  });
+
+  beginnerMatchesB.forEach((pair) => {
+    courtMap['B'].push({
+      teamL: pair[0],
+      teamR: pair[1],
+      isBeginner: true,
+    });
+  });
+
+  advancedMatches.forEach(pair => {
+    courtMap[advancedCourt].push({
+      teamL: pair[0],
+      teamR: pair[1],
+      isBeginner: false,
+    });
+  });
+
+  // 🔽 建立 XML 字串
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <schedule>
 `;
-
-        Object.entries(courtMatches).forEach(([courtName, teamList]) => {
-            result += `  <court name="${courtName}">
+  Object.entries(courtMap).forEach(([courtId, matches]) => {
+    xml += `  <court name="Court ${courtId}">
 `;
-
-            for (let i = 0; i < teamList.length; i++) {
-            for (let j = i + 1; j < teamList.length; j++) {
-                const teamL = teamList[i];
-                const teamR = teamList[j];
-
-                const teamLPlayers = teamPlayers[teamL] || ["", ""];
-                const teamRPlayers = teamPlayers[teamR] || ["", ""];
-
-                result += `    <match round="" `;
-                result += `teamL="${teamL}" teamR="${teamR}" `;
-                result += `teamLPlayer1="${teamLPlayers[0]}" teamLPlayer2="${teamLPlayers[1]}" `;
-                result += `teamRPlayer1="${teamRPlayers[0]}" teamRPlayer2="${teamRPlayers[1]}" `;
-                result += `teamLScore="" teamRScore="" />
+    matches.forEach(match => {
+      const t1 = match.teamL;
+      const t2 = match.teamR;
+      xml += `    <match 
+      teamL="${t1.symbol}" teamR="${t2.symbol}"
+      teamLPlayer1="${t1.players[0] || ''}" teamLPlayer2="${t1.players[1] || ''}"
+      teamRPlayer1="${t2.players[0] || ''}" teamRPlayer2="${t2.players[1] || ''}"
+      court="${courtId}" teamLScore="" teamRScore=""
+      isBeginner="${match.isBeginner}" round=""/>
 `;
-            }
-            }
-
-            result += `  </court>
+    });
+    xml += `  </court>
 `;
-        });
+  });
+  xml += '</schedule>';
 
-        result += `</schedule>`;
-        console.log("🏓 賽程 XML：", result);
-        return result;
-    }
+  console.log('📄 賽程 XML:', xml);
+  alert('✅ 已產生賽程 XML，可於 console 複製。');
+}
 
-    function generateXML() {
-        let courts = document.querySelectorAll('.court');
-        let result = `<?xml version="1.0" encoding="UTF-8"?>
-<groups>
-`;
-        let courtMatches = {};
-        let teamPlayers = {};
 
-        courts.forEach(court => {
-            let courtName = court.querySelector('.court-title').innerText;
-            let teams = court.querySelectorAll('.team');
-
-            result += `  <court name="${courtName}">
-`;
-            courtMatches[courtName] = [];
-
-            teams.forEach(teamDiv => {
-                const teamId = teamDiv.getAttribute("teamId");
-                result += `    <team id="${teamId}">
-`;
-                courtMatches[courtName].push(teamId);
-
-                let teamMemberNames = [];
-                teamDiv.querySelectorAll('.player').forEach(player => {
-                    result += `      <player>${player.innerText}</player>
-`;
-                    teamMemberNames.push(player.innerText);
-                });
-
-                teamPlayers[teamId] = teamMemberNames;
-                result += `    </team>
-`;
-            });
-
-            result += `  </court>
-`;
-        });
-
-        result += '</groups>';
-        console.log("📦 分組 XML:");
-        console.log(result);
-
-        generateScheduleXML(courtMatches, teamPlayers);
-
-        alert("✅ 分組與賽程 XML 皆已顯示於 console 中。");
-    }
 </script>
 </body>
 </html>
