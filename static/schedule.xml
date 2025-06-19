@@ -16,7 +16,7 @@
 <match teamL="♥️" teamR="♦️" teamLPlayer1="邱如玉" teamLPlayer2="Joseph Richardson" teamRPlayer1="施蓉蓉" teamRPlayer2="華啟梅" court="B" teamLScore="10" teamRScore="12" isBeginner="true" round="2"/>
 </court>
 <court name="Court D">
-<match teamL="J♥️" teamR="Q♥️" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="李彤庭" teamRPlayer2="湯士昀" court="D" teamLScore="15" teamRScore="13" isBeginner="false" round="3"/>
+<match teamL="J♥️" teamR="Q♥️" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="李彤庭" teamRPlayer2="湯士昀" court="D" teamLScore="" teamRScore="" isBeginner="false" round="3"/>
 <match teamL="J♥️" teamR="K♥️" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="William Hou" teamRPlayer2="謝元興" court="D" teamLScore="5" teamRScore="11" isBeginner="false" round="2"/>
 <match teamL="Q♥️" teamR="K♥️" teamLPlayer1="李彤庭" teamLPlayer2="湯士昀" teamRPlayer1="William Hou" teamRPlayer2="謝元興" court="D" teamLScore="11" teamRScore="9" isBeginner="false" round="1"/>
 </court>
