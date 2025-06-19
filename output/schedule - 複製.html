@@ -1,11 +1,8 @@
 import xml.etree.ElementTree as ET
-import urllib.request
 
-# 從 GitHub 上讀取 XML
-url = 'https://raw.githubusercontent.com/Li-ianshao/pickleball-static/main/static/schedule.xml'
-with urllib.request.urlopen(url) as response:
-    xml_data = response.read()
-    root = ET.fromstring(xml_data)
+# 讀取 schedule.xml
+tree = ET.parse('schedule.xml')
+root = tree.getroot()
 
 # 預設排序 match（需先轉數字 round）
 def sorted_matches(court):
@@ -23,38 +20,16 @@ html = """
   <title>比賽賽程總覽</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .match-box {
-      border-radius: 0.75rem;
-      border: 1px solid #d1d5db;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 0.75rem;
-      position: relative;
-      background-color: white;
-    }
+    .match-box { @apply rounded-xl border shadow-md p-3 relative bg-white; }
     .match-box.finished { background-color: #f3f4f6; }
     .match-box.running-beginner { background-color: #dbeafe; }
     .match-box.running-advanced { background-color: #fef9c3; }
     .round-tab {
-      position: absolute;
-      top: -1rem;
-      left: 1rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 0.375rem 0.375rem 0 0;
-      font-size: 0.875rem;
-      font-weight: 600;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      background-color: white;
-      border: 1px solid #e5e7eb;
+      @apply absolute -top-4 left-4 px-3 py-1 rounded-t-md text-sm font-semibold shadow bg-white border;
     }
-    .match-container {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1rem;
-      font-weight: 500;
-      margin-top: 0.5rem;
-    }
-    .player-col { width: 33%; }
-    .score-col { width: 33%; text-align: center; font-weight: bold; }
+    .match-container { @apply flex justify-between text-base font-medium mt-2; }
+    .player-col { @apply w-1/3; }
+    .score-col { @apply w-1/3 text-center font-bold; }
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4">
@@ -65,13 +40,10 @@ html = """
 # 場地排序依序 A → B → C → D
 for court in ['Court A', 'Court B', 'Court C', 'Court D']:
     court_elem = root.find(f".//court[@name='{court}']")
+    if court_elem is None: continue
 
     title = f"{court} ({'Beginner - Intermediate' if court in ['Court A', 'Court B'] else 'Advanced' if court == 'Court D' else 'Practice'})"
     html += f"<div class='bg-white rounded-lg shadow p-4'><h2 class='text-lg font-semibold mb-4'>{title}</h2>"
-
-    if court_elem is None:
-        html += "<p class='text-gray-500'>本球場作為練習用途，暫無比賽安排。</p></div>"
-        continue
 
     matches = sorted_matches(court_elem)
     prev_status = None
@@ -89,6 +61,7 @@ for court in ['Court A', 'Court B', 'Court C', 'Court D']:
         if sL and sR:
             status = 'finished'
         else:
+            # 決定是否為 running
             if prev_status == 'finished':
                 status = 'running-beginner' if beginner else 'running-advanced'
             else:
@@ -111,13 +84,16 @@ for court in ['Court A', 'Court B', 'Court C', 'Court D']:
 html += """
   </div>
   <script>
+    // 自動重新整理每 30 秒
     setInterval(() => location.reload(), 30000);
   </script>
 </body>
 </html>
 """
 
-with open('schedule.html', 'w', encoding='utf-8') as f:
+# 寫入 output
+os.makedirs("output", exist_ok=True)
+with open("output/schedule.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-print("✅ schedule.html 已從 GitHub XML 生成完畢")
+print("✅ 已產生 schedule.html")

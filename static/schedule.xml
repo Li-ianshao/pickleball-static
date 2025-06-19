@@ -1,34 +1,98 @@
 <schedule>
-  <court name="Court A (Beginner - Intermediate)">
-    <match round="1" teamL="Team 1" teamR="Team 2" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="陶家樂" teamRPlayer2="Alexander Nguyen" teamLScore="4" teamRScore="11" />
-    <match round="3" teamL="Team 1" teamR="Team 3" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu" teamLScore="11" teamRScore="8" />
-    <match round="5" teamL="Team 1" teamR="Team 4" teamLPlayer1="華啟梅" teamLPlayer2="徐慶如" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="" teamRScore="" />
-    <match round="6" teamL="Team 2" teamR="Team 3" teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen" teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu" teamLScore="" teamRScore="" />
-    <match round="4" teamL="Team 2" teamR="Team 4" teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="" teamRScore="" />
-    <match round="2" teamL="Team 3" teamR="Team 4" teamLPlayer1="胡小蓮" teamLPlayer2="Joy Liu" teamRPlayer1="孟愛貞" teamRPlayer2="李倩" teamLScore="11" teamRScore="8" />
+  <court name="Court A">
+    <match 
+      teamL="♠️" teamR="♣️"
+      teamLPlayer1="華啟梅" teamLPlayer2="徐慶如"
+      teamRPlayer1="陶家樂" teamRPlayer2="Alexander Nguyen"
+      court="A" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="♠️" teamR="J♣️"
+      teamLPlayer1="華啟梅" teamLPlayer2="徐慶如"
+      teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu"
+      court="A" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="♠️" teamR="Q♣️"
+      teamLPlayer1="華啟梅" teamLPlayer2="徐慶如"
+      teamRPlayer1="孟愛貞" teamRPlayer2="吳尚真"
+      court="A" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="♣️" teamR="J♣️"
+      teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen"
+      teamRPlayer1="胡小蓮" teamRPlayer2="Joy Liu"
+      court="A" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="♣️" teamR="Q♣️"
+      teamLPlayer1="陶家樂" teamLPlayer2="Alexander Nguyen"
+      teamRPlayer1="孟愛貞" teamRPlayer2="吳尚真"
+      court="A" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="J♣️" teamR="Q♣️"
+      teamLPlayer1="胡小蓮" teamLPlayer2="Joy Liu"
+      teamRPlayer1="孟愛貞" teamRPlayer2="吳尚真"
+      court="A" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
   </court>
-  <court name="Court B (Beginner - Intermediate)">
-    <match round="1" teamL="Team 5" teamR="Team 6" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="林臻" teamRPlayer2="TBA1" teamLScore="5" teamRScore="11" />
-    <match round="6" teamL="Team 5" teamR="Team 7" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="華啟梅" teamRPlayer2="邱如玉" teamLScore="" teamRScore="" />
-    <match round="5" teamL="Team 5" teamR="Team 8" teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="" teamRScore="" />
-    <match round="4" teamL="Team 6" teamR="Team 7" teamLPlayer1="林臻" teamLPlayer2="TBA1" teamRPlayer1="華啟梅" teamRPlayer2="邱如玉" teamLScore="" teamRScore="" />
-    <match round="3" teamL="Team 6" teamR="Team 8" teamLPlayer1="林臻" teamLPlayer2="TBA1" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="11" teamRScore="6" />
-    <match round="2" teamL="Team 7" teamR="Team 8" teamLPlayer1="華啟梅" teamLPlayer2="邱如玉" teamRPlayer1="吳尚真" teamRPlayer2="TBA2" teamLScore="8" teamRScore="11" />
+  <court name="Court B">
+    <match 
+      teamL="K♣️" teamR="A♣️"
+      teamLPlayer1="林 臻" teamLPlayer2="李倩"
+      teamRPlayer1="莊家玲" teamRPlayer2="溫孟璇"
+      court="B" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="K♣️" teamR="♥️"
+      teamLPlayer1="林 臻" teamLPlayer2="李倩"
+      teamRPlayer1="邱如玉" teamRPlayer2="Joseph Richardson"
+      court="B" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="K♣️" teamR="♦️"
+      teamLPlayer1="林 臻" teamLPlayer2="李倩"
+      teamRPlayer1="施蓉蓉" teamRPlayer2="華啟梅"
+      court="B" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="A♣️" teamR="♥️"
+      teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇"
+      teamRPlayer1="邱如玉" teamRPlayer2="Joseph Richardson"
+      court="B" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="A♣️" teamR="♦️"
+      teamLPlayer1="莊家玲" teamLPlayer2="溫孟璇"
+      teamRPlayer1="施蓉蓉" teamRPlayer2="華啟梅"
+      court="B" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
+    <match 
+      teamL="♥️" teamR="♦️"
+      teamLPlayer1="邱如玉" teamLPlayer2="Joseph Richardson"
+      teamRPlayer1="施蓉蓉" teamRPlayer2="華啟梅"
+      court="B" teamLScore="" teamRScore=""
+      isBeginner="true" round=""/>
   </court>
-  <court name="Court C (Advanced)">
-    <match round="1" teamL="Team 9" teamR="Team 10" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="李彤庭" teamRPlayer2="William Hou" teamLScore="5" teamRScore="11" />
-    <match round="3" teamL="Team 9" teamR="Team 11" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="TBA3" teamRPlayer2="TBA9" teamLScore="7" teamRScore="11" />
-    <match round="5" teamL="Team 9" teamR="Team 12" teamLPlayer1="羅天文" teamLPlayer2="張立揚" teamRPlayer1="TBA4" teamRPlayer2="TBA10" teamLScore="" teamRScore="" />
-    <match round="6" teamL="Team 10" teamR="Team 11" teamLPlayer1="李彤庭" teamLPlayer2="William Hou" teamRPlayer1="TBA3" teamRPlayer2="TBA9" teamLScore="" teamRScore="" />
-    <match round="4" teamL="Team 10" teamR="Team 12" teamLPlayer1="李彤庭" teamLPlayer2="William Hou" teamRPlayer1="TBA4" teamRPlayer2="TBA10" teamLScore="" teamRScore="" />
-    <match round="2" teamL="Team 11" teamR="Team 12" teamLPlayer1="TBA3" teamLPlayer2="TBA9" teamRPlayer1="TBA4" teamRPlayer2="TBA10" teamLScore="11" teamRScore="4" />
-  </court>
-  <court name="Court D (Advanced)">
-    <match round="1" teamL="Team 13" teamR="Team 14" teamLPlayer1="TBA5" teamLPlayer2="TBA11" teamRPlayer1="TBA6" teamRPlayer2="TBA12" teamLScore="11" teamRScore="7" />
-    <match round="3" teamL="Team 13" teamR="Team 15" teamLPlayer1="TBA5" teamLPlayer2="TBA11" teamRPlayer1="TBA7" teamRPlayer2="TBA13" teamLScore="11" teamRScore="8" />
-    <match round="5" teamL="Team 13" teamR="Team 16" teamLPlayer1="TBA5" teamLPlayer2="TBA11" teamRPlayer1="TBA8" teamRPlayer2="TBA14" teamLScore="" teamRScore="" />
-    <match round="6" teamL="Team 14" teamR="Team 15" teamLPlayer1="TBA6" teamLPlayer2="TBA12" teamRPlayer1="TBA7" teamRPlayer2="TBA13" teamLScore="" teamRScore="" />
-    <match round="4" teamL="Team 14" teamR="Team 16" teamLPlayer1="TBA6" teamLPlayer2="TBA12" teamRPlayer1="TBA8" teamRPlayer2="TBA14" teamLScore="" teamRScore="" />
-    <match round="2" teamL="Team 15" teamR="Team 16" teamLPlayer1="TBA7" teamLPlayer2="TBA13" teamRPlayer1="TBA8" teamRPlayer2="TBA14" teamLScore="9" teamRScore="11" />
+  <court name="Court D">
+    <match 
+      teamL="J♥️" teamR="Q♥️"
+      teamLPlayer1="羅天文" teamLPlayer2="張立揚"
+      teamRPlayer1="李彤庭" teamRPlayer2="湯士昀"
+      court="D" teamLScore="" teamRScore=""
+      isBeginner="false" round=""/>
+    <match 
+      teamL="J♥️" teamR="K♥️"
+      teamLPlayer1="羅天文" teamLPlayer2="張立揚"
+      teamRPlayer1="William Hou" teamRPlayer2="謝元興"
+      court="D" teamLScore="" teamRScore=""
+      isBeginner="false" round=""/>
+    <match 
+      teamL="Q♥️" teamR="K♥️"
+      teamLPlayer1="李彤庭" teamLPlayer2="湯士昀"
+      teamRPlayer1="William Hou" teamRPlayer2="謝元興"
+      court="D" teamLScore="" teamRScore=""
+      isBeginner="false" round=""/>
   </court>
 </schedule>
