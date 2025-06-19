@@ -20,7 +20,7 @@
     .match-box.running-advanced { background-color: #fef9c3; }
     .round-tab {
       position: absolute;
-      width:11rem;
+      width:12rem;
       top: -1rem;
       left: 1rem;
       padding: 0.25rem 0.75rem;
@@ -52,7 +52,10 @@
 <body class="bg-gray-100 min-h-screen p-4">
   <h1 class="text-2xl font-bold text-center mb-6">比賽賽程總覽</h1>
   <div id="schedule" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-
+  <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center text-gray-700 text-xl z-50">
+    <div class="mb-4">正在進行賽程編排，請稍後...</div>
+    <div class="w-12 h-12 border-4 border-blue-300 border-t-transparent border-solid rounded-full animate-spin"></div>
+  </div>
   <script>
     const COURT_ORDER = ['Court A', 'Court B', 'Court C', 'Court D'];
 
@@ -99,20 +102,26 @@
     }
 
     async function loadSchedule() {
+  const overlay = document.getElementById('loading-overlay');
+  overlay.style.display = 'flex';
       const res = await fetch('https://raw.githubusercontent.com/Li-ianshao/pickleball-static/refs/heads/main/static/schedule.xml');
       const text = await res.text();
       const parser = new DOMParser();
       const xml = parser.parseFromString(text, 'application/xml');
-
+      console.log(text.length)
+      if(text.length > 1){
+        document.getElementById('loading-overlay').style.display = 'none';
+      }
       const container = document.getElementById('schedule');
       container.innerHTML = '';
 
       COURT_ORDER.forEach(courtName => {
         const court = xml.querySelector(`court[name="${courtName}"]`);
+        
         const section = document.createElement('div');
         section.className = 'bg-white rounded-lg shadow p-4';
         section.innerHTML = `<h2 class='text-lg font-semibold mb-4'>${getCourtTitle(courtName)}</h2>`;
-
+        
         if (!court && courtName === 'Court C') {
           section.innerHTML += "<p class='text-gray-500'>本球場作為練習用途，暫無比賽安排。</p>";
         }
@@ -132,8 +141,8 @@
       });
     }
 
-    loadSchedule();
-    setInterval(() => location.reload(), 30000);
+    loadSchedule()
+    setInterval(() => location.reload(), 10000);
   </script>
 </body>
 </html>
