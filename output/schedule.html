@@ -104,18 +104,10 @@
     async function loadSchedule() {
   const overlay = document.getElementById('loading-overlay');
   overlay.style.display = 'flex';
-      fetch('https://script.google.com/macros/s/AKfycby13ciYkV2V7zf993jYac__Nq9W-G9lIvP8_Ji_YPlfSCr6kHsLJkpwS5bmCA3rKGCbig/exec' + Date.now())
-        .then(res => res.text())
-        .then(xmlString => {
-          const parser = new DOMParser();
-          const xml = parser.parseFromString(xmlString, "text/xml");
-          const matches = xml.getElementsByTagName("match");
-
-          for (let match of matches) {
-            console.log(match.getAttribute("court"), match.getAttribute("teamA"));
-            // 可依照需求插入到 HTML 畫面
-          }
-        });
+      const res = await fetch('https://raw.githubusercontent.com/Li-ianshao/pickleball-static/refs/heads/main/static/schedule.xml');
+      const text = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'application/xml');
 
       if(doc.length > 1){
         document.getElementById('loading-overlay').style.display = 'none';
