@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-=======
-
 <schedule>
   <court name="Court A">
     <match 
@@ -99,4 +96,3 @@
       isBeginner="false" round=""/>
   </court>
 </schedule>
->>>>>>> 0dc5ae56a83b1b13db9aa4c346fbf228f516b1b8
