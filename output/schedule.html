@@ -109,7 +109,7 @@
       const parser = new DOMParser();
       const xml = parser.parseFromString(text, 'application/xml');
 
-      if(doc.length > 1){
+      if(text.length > 1){
         document.getElementById('loading-overlay').style.display = 'none';
       }
       const container = document.getElementById('schedule');
