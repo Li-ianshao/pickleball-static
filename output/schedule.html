@@ -75,6 +75,8 @@
       const round = match.getAttribute('round') || '';
       const isBeginner = match.getAttribute('isBeginner') === 'true';
 
+      console.log(match)
+
       let status = '';
       if (sL && sR) {
         status = 'finished';
@@ -104,11 +106,11 @@
     async function loadSchedule() {
   const overlay = document.getElementById('loading-overlay');
   overlay.style.display = 'flex';
-      const res = await fetch('https://raw.githubusercontent.com/Li-ianshao/pickleball-static/refs/heads/main/static/schedule.xml');
+      const res = await fetch('https://billowing-recipe-ef5b.poi7415778.workers.dev/');
       const text = await res.text();
       const parser = new DOMParser();
       const xml = parser.parseFromString(text, 'application/xml');
-
+      console.log(xml)
       if(text.length > 1){
         document.getElementById('loading-overlay').style.display = 'none';
       }
