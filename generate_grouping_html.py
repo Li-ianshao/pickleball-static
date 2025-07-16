@@ -9,9 +9,9 @@ players = [f"{random.choice(last_names)}{random.choice(first_names)}" for _ in r
 random.shuffle(players)
 
 categories = {
-    "Day-Beginner": ['華啟梅','陶家樂','胡小蓮','孟愛貞','林 臻','莊家玲','邱如玉','施蓉蓉','謝元興'],
+    "Day-Beginner": ['華啟梅','洪國欽','林富桂','陶家樂','胡小蓮','孟愛貞','林 臻','莊家玲','邱如玉','施蓉蓉','謝元興'],
     "Day-Advanced": ['羅天文','李彤庭'],
-    "Night-Beginner": ['華啟梅','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','Joseph Richardson'],
+    "Night-Beginner": ['華啟梅','洪國欽','林富桂','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','Joseph Richardson'],
     "Night-Advanced": ['張立揚','William Hou','湯士昀']
 }
 
@@ -56,9 +56,9 @@ html = """
 
 html += "<div class='col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4'>\n"
 for label, names in categories.items():
-    html += f"<div><h2 class='font-semibold text-lg mb-2'>{label}</h2><div class='flex flex-wrap gap-2'>"
+    html += f"<div id='{label}'><h2 class='font-semibold text-lg mb-2'>{label}</h2><div class='flex flex-wrap gap-2'>"
     for name in names:
-        html += f"<div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' draggable='true'>{name}</div>"
+        html += f"<div class='player-tag px-3 py-1 bg-blue-100 text-blue-900 rounded-full cursor-move' data-group='{label}' draggable='true'>{name}</div>"
     html += "</div></div>"
 html += "</div>"
 
@@ -68,11 +68,12 @@ for section in ["Beginner", "Advanced"]:
       <h2 class="text-lg font-semibold mb-4">{section}</h2>
       <div class="space-y-3 group-type" id="{section.lower()}-groups" data-type="{section.lower()}">
     """
-    for _ in range(3):
+    for _ in range(1):
         html += f"""
         <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
           <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
           <div class="flex flex-wrap gap-2"></div>
+          <button onclick="deleteTeam(this.closest('.group-slot'))" class="top-1 right-1 text-red-500">❌</button>
         </div>
         """
     html += f"""
@@ -127,6 +128,22 @@ html += """
     picker.style.left = (window.scrollX + rect.left) + 'px';
   }
 
+  function deleteTeam(teamElement) {
+    // 1. 把隊伍裡的選手還原
+    const players = teamElement.querySelectorAll('.player-tag');
+    players.forEach(player => {
+      const group = player.getAttribute('data-group');
+      const pool = document.getElementById(group);
+      if (pool && pool.children.length >= 2) {
+        const container = pool.children[1]; // 第二個 child 是選手區
+        container.appendChild(player);
+      }
+    });
+
+    // 2. 從 DOM 中移除整個隊伍元素
+    teamElement.remove();
+  }
+
   function addGroup(containerId) {
     const container = document.getElementById(containerId);
     
@@ -135,6 +152,7 @@ html += """
     div.innerHTML = `
       <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
       <div class="flex flex-wrap gap-2" ></div>
+      <button onclick="deleteTeam(this.closest('.group-slot'))" class="top-1 right-1 text-red-500">❌</button>
     `;
     container.appendChild(div);
 
