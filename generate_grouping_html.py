@@ -9,10 +9,10 @@ players = [f"{random.choice(last_names)}{random.choice(first_names)}" for _ in r
 random.shuffle(players)
 
 categories = {
-    "Day-Beginner": ['華啟梅','洪國欽','林富桂','陶家樂','胡小蓮','孟愛貞','林 臻','莊家玲','邱如玉','施蓉蓉','謝元興'],
-    "Day-Advanced": ['羅天文','李彤庭'],
-    "Night-Beginner": ['華啟梅','洪國欽','林富桂','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','Joseph Richardson'],
-    "Night-Advanced": ['張立揚','William Hou','湯士昀']
+    "Day-Beginner": ['華啟梅','陶家樂','胡小蓮','孟愛貞','林臻','莊家玲','施蓉蓉','蔡鄭翠儀'],
+    "Day-Advanced": ['羅天文','Ping Lin','邱如玉','謝元興'],
+    "Night-Beginner": ['林富桂','徐慶如','Alexander Nguyen','Joy Liu','吳尚真','李倩','溫孟璇','Joseph Richardson'],
+    "Night-Advanced": ['張立揚','William Hou','湯士昀','洪國欽']
 }
 
 html = """
@@ -68,7 +68,7 @@ for section in ["Beginner", "Advanced"]:
       <h2 class="text-lg font-semibold mb-4">{section}</h2>
       <div class="space-y-3 group-type" id="{section.lower()}-groups" data-type="{section.lower()}">
     """
-    for _ in range(1):
+    for _ in range(4):
         html += f"""
         <div class="group-slot flex items-center p-2 bg-white border-2 border-gray-300 rounded shadow">
           <button onclick="openSymbolPicker(this)" class="symbol mr-4 w-16 h-10 flex items-center justify-center border border-gray-500 rounded text-xl">?</button>
@@ -91,7 +91,7 @@ html += """
 </button>
 </div>
 <script>
-  const suits = ["♠️", "♣️", "J♣️", "Q♣️", "K♣️", "A♣️", "♥️", "♦️", "J♥️", "Q♥️", "K♥️", "A♥️", "J♠️", "Q♠️", "K♠️", "A♠️"];
+  const suits = ["♠️1", "♠️2", "♠️3", "♠️4", "♥️1", "♥️2", "♥️3", "♥️4", "♥️5", "♥️6", "♥️7", "♥️8"];
   let dragged = null;
   let currentSymbolBtn = null;
 
@@ -267,7 +267,7 @@ function generateScheduleXMLFromGroups() {
   });
 
   // 🔽 建立 XML 字串
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<schedule>\n`;
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<schedule>\n<stage name="Preliminary" active="True">\n`;
   Object.entries(courtMap).forEach(([courtId, matches]) => {
     xml += `  <court name="Court ${courtId}">\n`;
     matches.forEach(match => {
@@ -282,6 +282,11 @@ function generateScheduleXMLFromGroups() {
     });
     xml += `  </court>\n`;
   });
+  xml += '</stage>';
+  xml += `<stage name="Elimination" active="False">\n<court name="Court A">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court B">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="B" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court D">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n</court>\n</stage>`;
+
+  xml += `<stage name="Finals" active="False">\n<court name="Court A">\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court B"></court>\n<court name="Court D">\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n</court>\n</stage>\n`;
+  
   xml += '</schedule>';
 
   console.log('📄 賽程 XML:', xml);

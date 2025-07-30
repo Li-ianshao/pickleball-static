@@ -34,7 +34,7 @@
     .match-container {
       display: flex;
       justify-content: space-between;
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-weight: 500;
       margin-top: 0.5rem;
     }
@@ -90,12 +90,10 @@
         <div class='round-tab'>Round ${round}</div>
         <div class='match-container'>
           <div class='player-col text-left'>
-            <div class='inline-block bg-gray-200 px-2 py-1 rounded text-sm font-semibold mb-1'>${match.getAttribute('teamL')}</div><br>
             ${tL1}<br>${tL2}
           </div>
           <div class='score-col'>${(sL && sR) ? `${sL} : ${sR}` : 'V.S'}</div>
           <div class='player-col text-right'>
-            <div class='inline-block bg-gray-200 px-2 py-1 rounded text-sm font-semibold mb-1'>${match.getAttribute('teamR')}</div><br>
             ${tR1}<br>${tR2}
           </div>
         </div>
@@ -117,8 +115,15 @@
       const container = document.getElementById('schedule');
       container.innerHTML = '';
 
+  // ✅ 只抓取 active="true" 的 stage
+  const activeStage = xml.querySelector('stage[active="True"]');
+  if (!activeStage) {
+    container.innerHTML = `<p class="text-gray-500">無任何啟用中的賽程階段。</p>`;
+    return;
+  }
+
       COURT_ORDER.forEach(courtName => {
-        const court = xml.querySelector(`court[name="${courtName}"]`);
+        const court = activeStage.querySelector(`court[name="${courtName}"]`);
         
         const section = document.createElement('div');
         section.className = 'bg-white rounded-lg shadow p-4';
