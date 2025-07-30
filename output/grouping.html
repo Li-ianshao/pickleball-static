@@ -285,7 +285,7 @@ function generateScheduleXMLFromGroups() {
   // 🔽 建立 XML 字串
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <schedule>
-<stage name="Preliminary" active="True">
+<stage name="預賽" active="True">
 `;
   Object.entries(courtMap).forEach(([courtId, matches]) => {
     xml += `  <court name="Court ${courtId}">
@@ -305,7 +305,7 @@ function generateScheduleXMLFromGroups() {
 `;
   });
   xml += '</stage>';
-  xml += `<stage name="Elimination" active="False">
+  xml += `<stage name="淘汰賽&冠亞賽" active="False">
 <court name="Court A">
 <match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>
 </court>
@@ -319,7 +319,7 @@ function generateScheduleXMLFromGroups() {
 </court>
 </stage>`;
 
-  xml += `<stage name="Finals" active="False">
+  xml += `<stage name="冠亞賽" active="False">
 <court name="Court A">
 <match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>
 </court>

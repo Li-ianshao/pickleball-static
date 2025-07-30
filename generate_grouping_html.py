@@ -267,7 +267,7 @@ function generateScheduleXMLFromGroups() {
   });
 
   // 🔽 建立 XML 字串
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<schedule>\n<stage name="Preliminary" active="True">\n`;
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<schedule>\n<stage name="預賽" active="True">\n`;
   Object.entries(courtMap).forEach(([courtId, matches]) => {
     xml += `  <court name="Court ${courtId}">\n`;
     matches.forEach(match => {
@@ -283,9 +283,9 @@ function generateScheduleXMLFromGroups() {
     xml += `  </court>\n`;
   });
   xml += '</stage>';
-  xml += `<stage name="Elimination" active="False">\n<court name="Court A">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court B">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="B" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court D">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n</court>\n</stage>`;
+  xml += `<stage name="淘汰賽&冠亞賽" active="False">\n<court name="Court A">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court B">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="B" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court D">\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n</court>\n</stage>`;
 
-  xml += `<stage name="Finals" active="False">\n<court name="Court A">\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court B"></court>\n<court name="Court D">\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n</court>\n</stage>\n`;
+  xml += `<stage name="冠亞賽" active="False">\n<court name="Court A">\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="A" teamLScore="" teamRScore="" isBeginner="true" round=""/>\n</court>\n<court name="Court B"></court>\n<court name="Court D">\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n<match  teamL="" teamR="" teamLPlayer1="" teamLPlayer2="" teamRPlayer1="" teamRPlayer2="" court="D" teamLScore="" teamRScore="" isBeginner="false" round=""/>\n</court>\n</stage>\n`;
   
   xml += '</schedule>';
 

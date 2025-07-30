@@ -50,7 +50,7 @@
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4">
-  <h1 class="text-2xl font-bold text-center mb-6">比賽賽程總覽</h1>
+  <h1 id="title" class="text-2xl font-bold text-center mb-6">比賽賽程總覽</h1>
   <div id="schedule" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
   <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center text-gray-700 text-xl z-50">
     <div class="mb-4">正在進行賽程編排，請稍後...</div>
@@ -117,10 +117,16 @@
 
   // ✅ 只抓取 active="true" 的 stage
   const activeStage = xml.querySelector('stage[active="True"]');
+  console.log(activeStage)
   if (!activeStage) {
     container.innerHTML = `<p class="text-gray-500">無任何啟用中的賽程階段。</p>`;
     return;
   }
+    const stageName = activeStage.getAttribute('name') || '未命名階段';
+      const titleElem = document.getElementById('title');
+      if (titleElem) {
+        titleElem.textContent = `${stageName}賽程總覽`;
+      }
 
       COURT_ORDER.forEach(courtName => {
         const court = activeStage.querySelector(`court[name="${courtName}"]`);
