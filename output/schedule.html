@@ -156,7 +156,29 @@
     }
 
     loadSchedule()
-    setInterval(() => location.reload(), 10000);
+    let lastETag = null;
+
+    async function checkIfScheduleChanged() {
+      try {
+        const response = await fetch('https://billowing-recipe-ef5b.poi7415778.workers.dev/', { method: 'HEAD' });
+        const currentETag = response.headers.get('ETag');
+
+        if (lastETag === null) {
+          // 首次抓取：先記住 ETag 並讀資料
+          lastETag = currentETag;
+          loadSchedule();
+        } else if (currentETag !== lastETag) {
+          // 資料有變更：更新 ETag 並重新載入
+          lastETag = currentETag;
+          location.reload();
+        }
+      } catch (err) {
+        console.error('檢查 XML 更新失敗：', err);
+      }
+    }
+    setInterval(() => {
+      checkIfScheduleChanged();
+    }, 10000); // 每 30 秒檢查一次
   </script>
 </body>
 </html>
